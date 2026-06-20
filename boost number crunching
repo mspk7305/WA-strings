@@ -1,0 +1,10 @@
+First I split chat log history out into boost info only, per level with the command:
+
+for i in {2..60}; do grep ' leveled to '$i' in' WoWChatLog* >> levelLogs/level$i.log; done
+
+In ./levelLogs/ the result is a file named level#.log, containing just the chat log for someone reaching that level. This was then parsed with the python code in parse.py to generate a spreadsheet with the criteria:
+* Outliers should be dropped from the data, for example someone reaching 60 after 10 kills would be an outlier, and someone reaching 10 after 700 kills would also be
+* Normalize the data to within 10% per level if possible 
+* Fall back to full data if not enough is available to process otherwise
+
+This requires the python packages pandas and openpyxl. see the parse.py for the full code.
